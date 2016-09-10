@@ -20,12 +20,12 @@ func main() {
 			Usage:  "Configuration file from which to load defaults",
 			EnvVar: "FUNNEL_CONFIG",
 		},
-    cli.IntFlag{
-      Name:  "verbose",
-      Value: 0,
-      Usage: "Verbosity level (0-6)",
-      EnvVar: "FUNNEL_VERBOSE",
-    },
+		cli.IntFlag{
+			Name:   "verbose",
+			Value:  0,
+			Usage:  "Verbosity level (0-6)",
+			EnvVar: "FUNNEL_VERBOSE",
+		},
 	}
 
 	app.Before = tryLoadingYamlFromFlag("config", "/etc/funnel.yml")
