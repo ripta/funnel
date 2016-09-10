@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "fmt"
+	"fmt"
 	"io/ioutil"
 	"os"
 
@@ -41,6 +41,7 @@ func tryLoadingYamlFromFlag(flag, defaultFile string) cli.BeforeFunc {
 					continue
 				}
 
+				fmt.Printf("%s(%T) -> %v\n", k, v, v)
 				c.Set(k, v)
 
 				// FIXME(rpasay): Looks like c.IsSet is actually cached, so we can't easily...

@@ -20,6 +20,24 @@ func main() {
 			Usage:  "Configuration file from which to load defaults",
 			EnvVar: "FUNNEL_CONFIG",
 		},
+		cli.StringSliceFlag{
+			Name:  "redirect-stderr",
+			Value: &cli.StringSlice{},
+			Usage: `File to redirect STDERR into:
+			"%s" will be replaced with the binary's basename
+			"-" will keep STDERR
+			multiple targets can be comma-separated`,
+			EnvVar: "FUNNEL_REDIRECT_STDERR",
+		},
+		cli.StringSliceFlag{
+			Name:   "redirect-stdout",
+			Value:  &cli.StringSlice{},
+			Usage:  `File to redirect STDOUT into:
+			"%s" will be replaced with the binary's basename
+			"-" will keep STDOUT
+			multiple targets can be comma-separated`,
+			EnvVar: "FUNNEL_REDIRECT_STDOUT",
+		},
 		cli.IntFlag{
 			Name:   "verbose",
 			Value:  0,

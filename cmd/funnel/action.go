@@ -13,6 +13,8 @@ func funnelCliAction(c *cli.Context) error {
 		return cli.NewExitError(msg, 255)
 	}
 
+  fmt.Printf("redirect-stderr = %v\n", c.StringSlice("redirect-stderr"))
+  fmt.Printf("redirect-stdout = %v\n", c.StringSlice("redirect-stdout"))
 	return funnel.Exec(funnelOptionsFromContext(c), c.Args().First(), c.Args().Tail())
 }
 
