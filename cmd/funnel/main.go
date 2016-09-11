@@ -1,52 +1,17 @@
 package main
 
 import (
+	"fmt"
 	"os"
-
-	"github.com/urfave/cli"
+	// "github.com/spf13/cobra"
 )
 
 func main() {
-	app := cli.NewApp()
-
-	app.Usage = "Execute a binary and redirect its output somewhere"
-	app.Version = "0.1.0"
-	app.HideHelp = true
-
-	app.Flags = []cli.Flag{
-		cli.StringFlag{
-			Name:   "c, config",
-			Value:  "",
-			Usage:  "Configuration file from which to load defaults",
-			EnvVar: "FUNNEL_CONFIG",
-		},
-		cli.StringSliceFlag{
-			Name:  "redirect-stderr",
-			Value: &cli.StringSlice{},
-			Usage: `File to redirect STDERR into:
-			"%s" will be replaced with the binary's basename
-			"-" will keep STDERR
-			multiple targets can be comma-separated`,
-			EnvVar: "FUNNEL_REDIRECT_STDERR",
-		},
-		cli.StringSliceFlag{
-			Name:   "redirect-stdout",
-			Value:  &cli.StringSlice{},
-			Usage:  `File to redirect STDOUT into:
-			"%s" will be replaced with the binary's basename
-			"-" will keep STDOUT
-			multiple targets can be comma-separated`,
-			EnvVar: "FUNNEL_REDIRECT_STDOUT",
-		},
-		cli.IntFlag{
-			Name:   "verbose",
-			Value:  0,
-			Usage:  "Verbosity level (0-6)",
-			EnvVar: "FUNNEL_VERBOSE",
-		},
+	// cobra.OnInitialize(init)
+	if err := funnelRoot().Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(-1)
 	}
 
-	app.Before = tryLoadingYamlFromFlag("config", "/etc/funnel.yml")
-	app.Action = funnelCliAction
-	app.Run(os.Args)
+	os.Exit(0)
 }
